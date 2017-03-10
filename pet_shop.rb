@@ -23,17 +23,13 @@ def stock_count(pet_shop)
 end
 
 def pets_by_breed(pet_shop, breed)
-  #Count needs to be outside the loop  so that it isn't cleared every time the loop restarts.
   count = []
  
   for pet in pet_shop[:pets]
-#Pet is each element (hash) of the pets array. We need to check that the breed key in pet is equal to breed (our input).
     if breed == pet[:breed]
-      #If a match is found it needs to be added to the count array (shovel).
       count << pet
     end
   end
-  #You need to return the result.
   return count
 end
 
@@ -65,4 +61,28 @@ end
 def add_pet_to_customer(customers, new_pet)
   customers[:pets] << new_pet
   return customers[:pets].count
+end
+
+def customer_can_afford_pet?(customers, new_pet)
+    if customers[:cash] >= new_pet[:price]
+      return true
+    end
+  return false
+end
+
+
+
+def sell_pet_to_customer(pet_shop, pet, customer)
+  if pet == nil
+    return nil
+  end
+
+  can_afford = customer_can_afford_pet?(customer, pet)
+
+  if can_afford
+    customer[:pets] << pet
+    pet_shop[:admin][:pets_sold] += 1
+    pet_shop[:admin][:total_cash] += pet[:price]
+  end
+
 end
