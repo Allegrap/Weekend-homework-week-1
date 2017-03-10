@@ -53,3 +53,16 @@ def remove_pet_by_name(pet_shop, name)
     end
   end
 end
+
+def add_pet_to_stock(pet_shop, new_pet)
+  pet_shop[:pets] << new_pet
+end
+
+def customer_pet_count(customers)
+  return customers[:pets].length()
+end
+
+def add_pet_to_customer(customers, new_pet)
+  customers[:pets] << new_pet
+  return customers[:pets].count
+end
